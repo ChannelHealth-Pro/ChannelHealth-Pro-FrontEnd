@@ -1,16 +1,17 @@
-import "./App.css";
-import Homepage from "./components/HomePage/Homepage";
-import Navbar from "./components/Navbar/Navbar";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <div>
-        <Navbar />
-      </div>
-      <Homepage />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
