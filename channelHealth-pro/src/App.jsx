@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import ChannelingHome from "./components/Channeling";
-// import RequireAuth from "./components/common/RequireAuth";
 import PrivateRoute from "./Auth/PrivateRoute";
 import AdminDashboard from "./components/AdminDashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
-import { getRole, setRole } from "./Auth/AuthService";
 
 function App() {
   return (

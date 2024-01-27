@@ -1,5 +1,10 @@
 import React from "react";
+import Navbar from "./Navbar/Navbar";
 
 export default function CustomerDashboard() {
-  return <div>CustomerDashboard</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 }
