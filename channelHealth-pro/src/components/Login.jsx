@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Family from "../assets/family.jpg";
 import { useNavigate } from "react-router-dom";
+import { setRole, setAuth } from "../Auth/AuthService";
 
 function Login() {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
   const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (email == "rashan@gmail.com" && password == "1234") {
+      setRole("admin");
+      setAuth(true);
+      navigate("/admin");
+    }
+  };
+
   return (
     <div className="w-full h-screen flex items-start">
       <div className="relative w-1/2 h-full flex flex-col">
@@ -20,6 +32,8 @@ function Login() {
             <input
               className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="flex flex-col mt-4">
@@ -28,6 +42,8 @@ function Login() {
               className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
               placeholder="Enter your email"
               type={"password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="mt-8 flex justify-between items-center">
@@ -42,7 +58,10 @@ function Login() {
             </button>
           </div>
           <div className="mt-8 flex flex-col gap-y-4">
-            <button className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg">
+            <button
+              className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
+              onClick={handleLogin}
+            >
               Sign in
             </button>
           </div>
