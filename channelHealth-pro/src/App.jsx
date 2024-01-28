@@ -6,14 +6,13 @@ import PrivateRoute from "./Auth/PrivateRoute";
 import AdminDashboard from "./components/AdminDashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
-import { getAuth } from "./Auth/AuthService";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={!getAuth() ? <Login /> : null} />
-        <Route path="register" element={!getAuth() ? <Register /> : null} />
+        <Route path="/" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route element={<PrivateRoute role={"admin"} />}>
           <Route path="/admin" element={<AdminDashboard />} />
         </Route>
@@ -21,7 +20,7 @@ function App() {
           <Route path="/doctor" element={<DoctorDashboard />} />
         </Route>
         <Route element={<PrivateRoute role={"customer"} />}>
-          <Route path="/customer" element={<CustomerDashboard />} />
+          <Route path="/customer" component={<CustomerDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

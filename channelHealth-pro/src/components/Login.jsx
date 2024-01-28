@@ -10,9 +10,9 @@ function Login() {
 
   const handleLogin = () => {
     if (email == "rashan@gmail.com" && password == "1234") {
-      setRole("customer");
+      setRole("admin");
       setAuth(true);
-      navigate("/customer");
+      navigate("/admin");
     }
   };
 
