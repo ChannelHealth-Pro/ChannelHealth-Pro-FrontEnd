@@ -20,7 +20,7 @@ function App() {
           <Route path="/doctor" element={<DoctorDashboard />} />
         </Route>
         <Route element={<PrivateRoute role={"customer"} />}>
-          <Route path="/customer" component={<CustomerDashboard />} />
+          <Route path="/customer" element={<CustomerDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

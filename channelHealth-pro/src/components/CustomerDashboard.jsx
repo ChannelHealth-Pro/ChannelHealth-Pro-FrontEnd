@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Navbar/Navbar";
 import doctorsData from "./Data";
+import doctorAvailability from "./DoctorAvailabilityData";
 
 function CustomerDashboard() {
   const [doctors, setDoctors] = useState(null);
@@ -14,6 +17,16 @@ function CustomerDashboard() {
   const [open, setOpen] = useState(false);
   const [selectedSpecialty, setSelectedSpecialty] = useState(null);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
+  const [doctorId, setDoctorId] = useState(null);
+  const [changeDoctorID, setChangeDoctorID] = useState(false);
+  const [predoctorId, setPredoctorId] = useState(null);
+  useEffect(() => {
+    setChangeDoctorID(true);
+  }, [doctorId]);
+  const [availability, setAvailability] = useState("");
+  const [session, setSession] = useState(false);
+  const [time, setTime] = useState("");
+  const [number, setNumber] = useState("");
 
   const specialties = [
     ...new Set(doctorsData.map((doctor) => doctor.specialty)),
@@ -31,7 +44,23 @@ function CustomerDashboard() {
 
   useEffect(() => {
     setDoctors(doctorsData);
-  }, []);
+    setAvailability(doctorAvailability);
+    console.log(doctorAvailability);
+    console.log(doctorsData);
+  }, [doctorId]);
+  useEffect(() => {}, [session]);
+  const notify = () => {
+    toast.error("🦄 No Session!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
   return (
     <div>
       <Navbar />
@@ -146,6 +175,7 @@ function CustomerDashboard() {
                         setSelectedDoctor(doctor.name);
                         setOpen(false);
                         setInputValueDoctor("");
+                        setDoctorId(doctor.id);
                       }
                     }}
                   >
@@ -173,6 +203,7 @@ function CustomerDashboard() {
                         setSelectedDoctor(country.name);
                         setOpen(false);
                         setInputValueDoctor("");
+                        setDoctorId(country.id);
                       }
                     }}
                   >
@@ -181,6 +212,52 @@ function CustomerDashboard() {
                 ))}
           </ul>
         </div>
+      </div>
+      <div className="ml-11 mt-10">
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+      </div>
+      <div className="ml-4 mt-9 flex flex-nowrap ">
+        {doctorId ? (
+          doctorAvailability
+            .filter((availability) => doctorId === availability.doctorId)
+            .map((availability, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setSession(true);
+                  setTime(availability.time);
+                  setNumber(availability.patientCount);
+                  setPredoctorId(doctorId);
+                }}
+                className="m-4 px-10 py-5 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+              >
+                {availability.date}
+              </button>
+            ))
+        ) : (
+          <div>
+            <p className=" ml-60 text-red-700 uppercase ...">No Session!</p>
+          </div>
+        )}
+      </div>
+      <div>
+        {session ? (
+          <div>
+            City Hospital ,new york {number} and {time}
+            <button className="border-t-neutral-950">Book Now</button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
