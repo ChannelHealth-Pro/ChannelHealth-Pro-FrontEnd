@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Navbar/Navbar";
 import doctorsData from "./Data";
 import doctorAvailability from "./DoctorAvailabilityData";
+import { useNavigate } from "react-router-dom";
 
 function CustomerDashboard() {
   const [doctors, setDoctors] = useState(null);
@@ -20,6 +21,8 @@ function CustomerDashboard() {
   const [doctorId, setDoctorId] = useState(null);
   const [changeDoctorID, setChangeDoctorID] = useState(false);
   const [predoctorId, setPredoctorId] = useState(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setChangeDoctorID(true);
   }, [doctorId]);
@@ -76,7 +79,7 @@ function CustomerDashboard() {
               ? selected?.length > 25
                 ? selected?.substring(0, 25) + "..."
                 : selected
-              : "Select Country"}
+              : "Select Specialty"}
             <BiChevronDown size={20} className={`${open && "rotate-180"}`} />
           </div>
           <ul
@@ -90,7 +93,7 @@ function CustomerDashboard() {
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-                placeholder="Enter country name"
+                placeholder="Enter specialty name"
                 className="placeholder:text-gray-700 p-2 outline-none"
               />
             </div>
@@ -133,7 +136,7 @@ function CustomerDashboard() {
               ? selectedDoctor?.length > 25
                 ? selectedDoctor?.substring(0, 25) + "..."
                 : selectedDoctor
-              : "Select Country"}
+              : "Select Doctor"}
             <BiChevronDown size={20} className={`${open && "rotate-180"}`} />
           </div>
           <ul
@@ -149,7 +152,7 @@ function CustomerDashboard() {
                 onChange={(e) =>
                   setInputValueDoctor(e.target.value.toLowerCase())
                 }
-                placeholder="Enter country name"
+                placeholder="Enter Doctor name"
                 className="placeholder:text-gray-700 p-2 outline-none"
               />
             </div>
@@ -247,15 +250,41 @@ function CustomerDashboard() {
             ))
         ) : (
           <div>
-            <p className=" ml-60 text-red-700 uppercase ...">No Session!</p>
+            <p className=" ml-60 text-red-700 uppercase ...">
+              Please Select Doctor !
+            </p>
           </div>
         )}
       </div>
       <div>
-        {session ? (
-          <div>
-            City Hospital ,new york {number} and {time}
-            <button className="border-t-neutral-950">Book Now</button>
+        {doctorId === predoctorId && session ? (
+          <div className="flex flex-col md:flex-row flex-wrap justify-between items-center p-4 bg-gray-200 rounded-md">
+            <div className="mb-4 md:mb-0">
+              <h2 className="text-xl font-semibold">Hospital Name:</h2>
+              <p>City Hospital</p>
+            </div>
+
+            <div className="mb-4 md:mb-0">
+              <h2 className="text-xl font-semibold">Place:</h2>
+              <p>New York</p>
+            </div>
+
+            <div className="mb-4 md:mb-0">
+              <h2 className="text-xl font-semibold">Booking Number:</h2>
+              <p>{number}</p>
+            </div>
+
+            <div className="mb-4 md:mb-0">
+              <h2 className="text-xl font-semibold">Doctor Time:</h2>
+              <p>{time}</p>
+            </div>
+
+            <button
+              className="mt-4 md:mt-0 px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+              onClick={() => navigate("/booking")}
+            >
+              Book Now
+            </button>
           </div>
         ) : null}
       </div>

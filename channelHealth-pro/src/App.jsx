@@ -6,6 +6,7 @@ import PrivateRoute from "./Auth/PrivateRoute";
 import AdminDashboard from "./components/AdminDashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
+import BookingDoctor from "./components/Booking/BookingDoctor";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         </Route>
         <Route element={<PrivateRoute role={"customer"} />}>
           <Route path="/customer" element={<CustomerDashboard />} />
+          <Route path="/booking" element={<BookingDoctor />} />
         </Route>
       </Routes>
     </BrowserRouter>
