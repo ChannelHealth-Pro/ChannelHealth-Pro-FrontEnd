@@ -8,6 +8,7 @@ import DoctorDashboard from "./components/DoctorDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
 import BookingDoctor from "./components/Booking/BookingDoctor";
 import ViewBooking from "./components/Booking/ViewBooking";
+import AddAvailability from "./components/Doctor/AddAvailability";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         </Route>
         <Route element={<PrivateRoute role={"doctor"} />}>
           <Route path="/doctor" element={<DoctorDashboard />} />
+          <Route path="/addavailability" element={<AddAvailability />} />
         </Route>
         <Route element={<PrivateRoute role={"customer"} />}>
           <Route path="/customer" element={<CustomerDashboard />} />
