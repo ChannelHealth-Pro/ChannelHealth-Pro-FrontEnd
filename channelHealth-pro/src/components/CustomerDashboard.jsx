@@ -21,6 +21,8 @@ function CustomerDashboard() {
   const [doctorId, setDoctorId] = useState(null);
   const [changeDoctorID, setChangeDoctorID] = useState(false);
   const [predoctorId, setPredoctorId] = useState(null);
+  const [doctorName, setDoctorName] = useState("");
+  const [selectDate, setSelectDate] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -179,6 +181,7 @@ function CustomerDashboard() {
                         setOpen(false);
                         setInputValueDoctor("");
                         setDoctorId(doctor.id);
+                        setDoctorName(doctor.name);
                       }
                     }}
                   >
@@ -207,6 +210,7 @@ function CustomerDashboard() {
                         setOpen(false);
                         setInputValueDoctor("");
                         setDoctorId(country.id);
+                        setDoctorName(country.name);
                       }
                     }}
                   >
@@ -241,6 +245,7 @@ function CustomerDashboard() {
                   setSession(true);
                   setTime(availability.time);
                   setNumber(availability.patientCount);
+                  setSelectDate(availability.date);
                   setPredoctorId(doctorId);
                 }}
                 className="m-4 px-10 py-5 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
@@ -281,7 +286,15 @@ function CustomerDashboard() {
 
             <button
               className="mt-4 md:mt-0 px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-              onClick={() => navigate("/booking")}
+              onClick={() =>
+                navigate("/booking", {
+                  state: {
+                    DoctorName: doctorName,
+                    Date: selectDate,
+                    Time: time,
+                  },
+                })
+              }
             >
               Book Now
             </button>
